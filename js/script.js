@@ -56,3 +56,34 @@ activityField.addEventListener('change', (e) => {
     costDisplay.textContent = updatedCostText;
   }
 });
+
+// setup payment info for credit card by default and add hide functions
+const paymentSelector = document.querySelector('#payment');
+const payMethods = {
+  'credit-card': document.querySelector('#credit-card'),
+  paypal: document.querySelector('#paypal'),
+  bitcoin: document.querySelector('#bitcoin'),
+};
+// initialize credit card as default option payment
+const creditCardOption = paymentSelector.querySelector(
+  'option[value="credit-card"]'
+);
+creditCardOption.selected = true;
+/**
+ * @functions show or hide an element
+ * @param {*} el - element you want to change
+ */
+const hideElement = (el) => (el.style = 'display:none');
+const showElement = (el) => (el.style = 'display:block');
+
+hideElement(payMethods['paypal']);
+hideElement(payMethods['bitcoin']);
+// eventlistener for payment selection
+paymentSelector.addEventListener('change', (e) => {
+  const paymentSelection = e.target.value;
+  const methods = Object.keys(payMethods);
+  for (const method of methods) {
+    if (paymentSelection === method) showElement(payMethods[method]);
+    else hideElement(payMethods[method]);
+  }
+});
