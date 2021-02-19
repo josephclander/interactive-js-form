@@ -37,3 +37,22 @@ designSelection.addEventListener('change', () => {
     else option.hidden = true;
   }
 });
+
+// setup "register for activities" total cost
+/**
+ * CHECK - selection validation to be added
+ */
+const activityField = document.querySelector('#activities');
+const costDisplay = document.querySelector('#activities-cost');
+let runningTotal = 0;
+activityField.addEventListener('change', (e) => {
+  if (e.target.tagName === 'INPUT') {
+    const activity = e.target;
+    const isChecked = activity.checked;
+    const activityCost = parseInt(activity.dataset.cost);
+    if (isChecked) runningTotal += activityCost;
+    else runningTotal -= activityCost;
+    const updatedCostText = `Total: $${runningTotal}`;
+    costDisplay.textContent = updatedCostText;
+  }
+});
