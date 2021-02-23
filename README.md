@@ -62,9 +62,9 @@ Using the supplied HTML and CSS files, you'll add your own JavaScript to make th
 
 5. "Payment Info" section
 
-   The credit card payment option should be selected for the user by default. So when the form first loads, "Credit Card" should be displayed in the "I'm going to pay with" <select> element, and the credit card payment section should be the only payment section displayed in the form’s UI. And when the user selects one of the payment options from the "I'm going to pay with" drop down menu, the form should update to display only the chosen payment method section.
+   The credit card payment option should be selected for the user by default. So when the form first loads, "Credit Card" should be displayed in the "I'm going to pay with" `<select>` element, and the credit card payment section should be the only payment section displayed in the form’s UI. And when the user selects one of the payment options from the "I'm going to pay with" drop down menu, the form should update to display only the chosen payment method section.
 
-   - Program the "I'm going to pay with" <select> element to listen for user changes. When a change is detected, hide all payment sections in the form’s UI except the selected one.
+   - Program the "I'm going to pay with" `<select>` element to listen for user changes. When a change is detected, hide all payment sections in the form’s UI except the selected one.
 
 6. Form validation
 
