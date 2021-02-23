@@ -164,23 +164,80 @@ const isValidCVV = (cvv) => {
   return isValid;
 };
 
+/**
+ * invalid notification handler
+ * @param {element}
+ */
+const invalidNotificationHandler = (element) => {
+  const parent = element.parentElement;
+  parent.classList.add('not-valid');
+  parent.classList.remove('valid');
+  parent.lastElementChild.classList.remove('hint');
+};
+
+/**
+ * valid option handler
+ * @param {element}
+ */
+const validHandler = (element) => {
+  const parent = element.parentElement;
+  parent.classList.remove('not-valid');
+  parent.classList.add('valid');
+  parent.lastElementChild.classList.add('hint');
+};
+
 // form submission validation
 const form = document.querySelector('form');
 // input fields to validate
 const emailInput = document.querySelector('#email');
+const activitiesBox = document.querySelector('#activities-box');
 const creditCardInput = document.querySelector('#cc-num');
 const zipcodeInput = document.querySelector('#zip');
 const cvvInput = document.querySelector('#cvv');
 // form submit listener
 form.addEventListener('submit', (e) => {
-  !isValidName(nameInput.value) ? e.preventDefault() : null;
-  !isValidEmail(emailInput.value) ? e.preventDefault() : null;
-  !isValidActivities() ? e.preventDefault() : null;
+  // I assume clearing the console is not a good idea in production
+  // however without it the console doesn't distinguish a new submit request
+  // are there alternatives?
+  console.clear();
+  if (!isValidName(nameInput.value)) {
+    e.preventDefault();
+    invalidNotificationHandler(nameInput);
+  } else {
+    validHandler(nameInput);
+  }
+  if (!isValidEmail(emailInput.value)) {
+    e.preventDefault();
+    invalidNotificationHandler(emailInput);
+  } else {
+    validHandler(emailInput);
+  }
+  if (!isValidActivities()) {
+    e.preventDefault();
+    invalidNotificationHandler(activitiesBox);
+  } else {
+    validHandler(activitiesBox);
+  }
   // checks for credit card options
   if (paymentSelector.value === 'credit-card') {
-    !isValidCreditCardNumber(creditCardInput.value) ? e.preventDefault() : null;
-    !isValidZip(zipcodeInput.value) ? e.preventDefault() : null;
-    !isValidCVV(cvvInput.value) ? e.preventDefault() : null;
+    if (!isValidCreditCardNumber(creditCardInput.value)) {
+      e.preventDefault();
+      invalidNotificationHandler(creditCardInput);
+    } else {
+      validHandler(creditCardInput);
+    }
+    if (!isValidZip(zipcodeInput.value)) {
+      e.preventDefault();
+      invalidNotificationHandler(zipcodeInput);
+    } else {
+      validHandler(zipcodeInput);
+    }
+    if (!isValidCVV(cvvInput.value)) {
+      e.preventDefault();
+      invalidNotificationHandler(cvvInput);
+    } else {
+      validHandler(cvv);
+    }
   }
 });
 
