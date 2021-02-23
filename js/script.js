@@ -183,3 +183,20 @@ form.addEventListener('submit', (e) => {
     !isValidCVV(cvvInput.value) ? e.preventDefault() : null;
   }
 });
+
+/**
+ * Add event listeners to activity checkboxes
+ * add clearer styling for focused states
+ */
+const activities = document.querySelectorAll('#activities-box label input');
+activities.forEach((item) => {
+  item.addEventListener('focus', () => {
+    item.parentElement.className = 'focus';
+  });
+});
+
+activities.forEach((item) => {
+  item.addEventListener('blur', () => {
+    item.parentElement.className = '';
+  });
+});
