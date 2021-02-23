@@ -1,8 +1,12 @@
-// focus to initial text field
+/**
+ * focus to initial text field
+ */
 const nameInput = document.querySelector('#name');
 nameInput.focus();
 
-// show/hide job role entry for "other"
+/**
+ * show/hide job role entry for "other"
+ */
 const otherJobInput = document.querySelector('#other-job-role');
 otherJobInput.style = 'display: none';
 const otherJobSelect = document.querySelector('#title');
@@ -18,7 +22,9 @@ otherJobSelect.addEventListener('change', () => {
  *          a value if you type and then hide it
  */
 
-// setup option handling for t-shirt colors
+/**
+ * setup option handling for t-shirt colors
+ */
 const tshirtColor = document.querySelector('#color');
 tshirtColor.disabled = true;
 const designSelection = document.querySelector('#design');
@@ -38,9 +44,8 @@ designSelection.addEventListener('change', () => {
   }
 });
 
-// setup "register for activities" total cost
 /**
- * CHECK - selection validation to be added
+ * setup "register for activities" total cost
  */
 const activityField = document.querySelector('#activities');
 const costDisplay = document.querySelector('#activities-cost');
@@ -57,7 +62,9 @@ activityField.addEventListener('change', (e) => {
   }
 });
 
-// setup payment info for credit card by default and add hide functions
+/**
+ * setup payment info for credit card by default and add hide functions
+ */
 const paymentSelector = document.querySelector('#payment');
 const payMethods = {
   'credit-card': document.querySelector('#credit-card'),
@@ -69,16 +76,18 @@ const creditCardOption = paymentSelector.querySelector(
   'option[value="credit-card"]'
 );
 creditCardOption.selected = true;
+
 /**
  * @functions show or hide an element
  * @param {*} el - element you want to change
  */
 const hideElement = (el) => (el.style = 'display:none');
 const showElement = (el) => (el.style = 'display:block');
-
 hideElement(payMethods['paypal']);
 hideElement(payMethods['bitcoin']);
-// eventlistener for payment selection
+/**
+ * eventlistener for payment selection
+ */
 paymentSelector.addEventListener('change', (e) => {
   const paymentSelection = e.target.value;
   const methods = Object.keys(payMethods);
@@ -96,6 +105,7 @@ paymentSelector.addEventListener('change', (e) => {
 /**
  * name check present
  * no blanks or spaces
+ * @param {string} name
  */
 const isValidName = (name) => {
   const regex = /\S+/;
@@ -107,6 +117,7 @@ const isValidName = (name) => {
 /**
  * valid email address
  * format = word@word.com
+ * @param {string} email
  */
 const isValidEmail = (email) => {
   const regex = /\w+@\w+.com/;
@@ -118,11 +129,13 @@ const isValidEmail = (email) => {
 /**
  * activity validation
  *  1 or more activities checked
+ * @param {array} arrayOfActivities
  */
-const isValidActivities = () => {
-  const activities = document.querySelectorAll('#activities-box label input');
-  for (let i = 0; i < activities.length; i++) {
-    const activity = activities[i];
+const isValidActivities = (activitiesBox) => {
+  const collectionOfActivities = activitiesBox.children;
+  const length = collectionOfActivities.length;
+  for (let i = 0; i < length; i++) {
+    const activity = collectionOfActivities[i].firstElementChild;
     // immediately return true if one is checked
     if (activity.checked) return true;
   }
@@ -133,6 +146,7 @@ const isValidActivities = () => {
 /**
  * credit card number validator
  * 13 - 16 digit number with no dashes or spaces
+ * @param {number} ccNumber
  */
 const isValidCreditCardNumber = (ccNumber) => {
   const regex = /^\d{13,16}$/;
@@ -145,6 +159,7 @@ const isValidCreditCardNumber = (ccNumber) => {
 /**
  * zip code validator
  * 5 digit number
+ * @param {number} zip
  */
 const isValidZip = (zip) => {
   const regex = /^\d{5}$/;
@@ -156,6 +171,7 @@ const isValidZip = (zip) => {
 /**
  * cvv validator
  * 3 digit number
+ * @param {number} cvv
  */
 const isValidCVV = (cvv) => {
   const regex = /^\d{3}$/;
@@ -186,7 +202,36 @@ const validHandler = (element) => {
   parent.lastElementChild.classList.add('hint');
 };
 
-// form submission validation
+/**
+ * validation lookup
+ * function to select correct validation function & notification handler
+ */
+const validationMethod = {
+  name: isValidName,
+  email: isValidEmail,
+  activities: isValidActivities,
+  credit: isValidCreditCardNumber,
+  zip: isValidZip,
+  cvv: isValidCVV,
+};
+const validate = (type, input, e) => {
+  let isValid;
+  if (type === 'activities') {
+    isValid = validationMethod[type](input);
+  } else {
+    isValid = validationMethod[type](input.value);
+  }
+  if (isValid) {
+    validHandler(input);
+  } else {
+    e.preventDefault();
+    invalidNotificationHandler(input);
+  }
+};
+
+/**
+ * form submit listener
+ */
 const form = document.querySelector('form');
 // input fields to validate
 const emailInput = document.querySelector('#email');
@@ -194,50 +239,20 @@ const activitiesBox = document.querySelector('#activities-box');
 const creditCardInput = document.querySelector('#cc-num');
 const zipcodeInput = document.querySelector('#zip');
 const cvvInput = document.querySelector('#cvv');
-// form submit listener
 form.addEventListener('submit', (e) => {
-  // I assume clearing the console is not a good idea in production
+  // I think clearing the console is not a good idea in production
   // however without it the console doesn't distinguish a new submit request
-  // are there alternatives?
+  // are there alternatives that are used?
   console.clear();
-  if (!isValidName(nameInput.value)) {
-    e.preventDefault();
-    invalidNotificationHandler(nameInput);
-  } else {
-    validHandler(nameInput);
-  }
-  if (!isValidEmail(emailInput.value)) {
-    e.preventDefault();
-    invalidNotificationHandler(emailInput);
-  } else {
-    validHandler(emailInput);
-  }
-  if (!isValidActivities()) {
-    e.preventDefault();
-    invalidNotificationHandler(activitiesBox);
-  } else {
-    validHandler(activitiesBox);
-  }
+
+  validate('name', nameInput, e);
+  validate('email', emailInput, e);
+  validate('activities', activitiesBox, e);
   // checks for credit card options
   if (paymentSelector.value === 'credit-card') {
-    if (!isValidCreditCardNumber(creditCardInput.value)) {
-      e.preventDefault();
-      invalidNotificationHandler(creditCardInput);
-    } else {
-      validHandler(creditCardInput);
-    }
-    if (!isValidZip(zipcodeInput.value)) {
-      e.preventDefault();
-      invalidNotificationHandler(zipcodeInput);
-    } else {
-      validHandler(zipcodeInput);
-    }
-    if (!isValidCVV(cvvInput.value)) {
-      e.preventDefault();
-      invalidNotificationHandler(cvvInput);
-    } else {
-      validHandler(cvv);
-    }
+    validate('credit', creditCardInput, e);
+    validate('zip', zipcodeInput, e);
+    validate('cvv', cvvInput, e);
   }
 });
 
@@ -245,8 +260,10 @@ form.addEventListener('submit', (e) => {
  * Add event listeners to activity checkboxes
  * add clearer styling for focused states
  */
-const activities = document.querySelectorAll('#activities-box label input');
-activities.forEach((item) => {
+const activitiesInput = document.querySelectorAll(
+  '#activities-box label input'
+);
+activitiesInput.forEach((item) => {
   item.addEventListener('focus', () => {
     item.parentElement.className = 'focus';
   });
