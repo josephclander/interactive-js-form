@@ -193,9 +193,6 @@ activities.forEach((item) => {
   item.addEventListener('focus', () => {
     item.parentElement.className = 'focus';
   });
-});
-
-activities.forEach((item) => {
   item.addEventListener('blur', () => {
     item.parentElement.className = '';
   });
