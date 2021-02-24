@@ -31,6 +31,7 @@ designSelection.addEventListener('change', () => {
   // sufficient to always enable tshirtColor here
   // as default option will be disabled
   tshirtColor.disabled = false;
+  tshirtColor.selectedIndex = 0;
   const options = tshirtColor.children;
   // start at 1 to miss default select option
   for (let i = 1; i < options.length; i++) {
