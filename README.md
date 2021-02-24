@@ -17,6 +17,8 @@ Using the supplied HTML and CSS files, you'll add your own JavaScript to make th
 
 [Testing](#testing)
 
+[Added Features](#added-features)
+
 ## Project Instructions
 
 1.  The "Name" field
@@ -140,3 +142,10 @@ Using the supplied HTML and CSS files, you'll add your own JavaScript to make th
 ## Testing
 
 TBC
+
+## Added Features
+
+1. On submit, the values for "other job roles" and all credit card options will be removed if the user has no longer selected those options. Otherwise there was potential for a user to select "other" in job roles, enter a string, change their mind and select one of the given job roles. This would result in receiving "Frontend developer" as a job role and also receive the text they entered but no longer wanted.
+   These functions were also added in the submit section as opposed to the individual functions so that values are only removed when the user decides to submit. This gives them the option to go back before they submit but not after. Note: if the page does not submit as it still requires fields to be correctly filled, the inputs will still be cleared to an empty string.
+
+2. real-time error messages were entered for all validated, text entry inputs except "name". The decision was made that "name" isn't specific enough with its validation and may just annoy the user. Likewise, as the activities only need one selection, realtime entry doesn't really apply.
