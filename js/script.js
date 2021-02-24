@@ -171,7 +171,7 @@ const isValidEmail = (email) => {
 /**
  * activity validation
  *  1 or more activities checked
- * @param {array} arrayOfActivities
+ * @param {element} activitiesBox - the container that holds the inputs
  */
 const isValidActivities = (activitiesBox) => {
   const collectionOfActivities = activitiesBox.children;
@@ -284,6 +284,11 @@ const cvvInput = document.querySelector('#cvv');
  * Realtime validation methods
  */
 emailInput.addEventListener('keyup', () => validate('email', emailInput));
+activitiesInput.forEach((item) => {
+  item.addEventListener('change', () => {
+    validate('activities', activitiesBox);
+  });
+});
 if (paymentSelector.value === 'credit-card') {
   creditCardInput.addEventListener('keyup', () =>
     validate('credit', creditCardInput)
