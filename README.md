@@ -149,3 +149,5 @@ TBC
    These functions were also added in the submit section as opposed to the individual functions so that values are only removed when the user decides to submit. This gives them the option to go back before they submit but not after. Note: if the page does not submit as it still requires fields to be correctly filled, the inputs will still be cleared to an empty string.
 
 2. Real-time error messages were entered for all validated, text entry inputs. Real-time validation was added to the activites box. It does not start on page load, it listens for input checks and so only initiates with a correct validation on first click. This also works after an incorrect page submission. Initially name and activites were not given realtime validation. However, it was noted that if the page is submitted with errors, these errors don't go away as you type/check and would cause confusion.
+
+3. Conditional error message handling has been added for email validation. This is added in the function `isValidEmail`.
