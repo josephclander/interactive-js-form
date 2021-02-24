@@ -45,6 +45,22 @@ designSelection.addEventListener('change', () => {
 });
 
 /**
+ * Add event listeners to activity checkboxes
+ * add clearer styling for focused states
+ */
+const activitiesInput = document.querySelectorAll(
+  '#activities-box label input'
+);
+activitiesInput.forEach((item) => {
+  item.addEventListener('focus', () => {
+    item.parentElement.className = 'focus';
+  });
+  item.addEventListener('blur', () => {
+    item.parentElement.className = '';
+  });
+});
+
+/**
  * setup "register for activities" total cost
  */
 const activityField = document.querySelector('#activities');
@@ -53,6 +69,7 @@ let runningTotal = 0;
 activityField.addEventListener('change', (e) => {
   if (e.target.tagName === 'INPUT') {
     const activity = e.target;
+    activityHandler(activity);
     const isChecked = activity.checked;
     const activityCost = parseInt(activity.dataset.cost);
     if (isChecked) runningTotal += activityCost;
@@ -61,6 +78,34 @@ activityField.addEventListener('change', (e) => {
     costDisplay.textContent = updatedCostText;
   }
 });
+
+/**
+ * function to prevent overlapping activity selection
+ * @param {element} clickedActivity
+ */
+const activityHandler = (clickedActivity) => {
+  const clickedDate = clickedActivity.dataset.dayAndTime || '';
+  const isChecked = clickedActivity.checked;
+  if (isChecked) {
+    for (let i = 0; i < activitiesInput.length; i++) {
+      const activity = activitiesInput[i];
+      const activityDate = activity.dataset.dayAndTime || '';
+      if (activity != clickedActivity && activityDate == clickedDate) {
+        activity.disabled = true;
+        activity.parentElement.classList.add('disabled');
+      }
+    }
+  } else {
+    for (let i = 0; i < activitiesInput.length; i++) {
+      const activity = activitiesInput[i];
+      const activityDate = activity.dataset.dayAndTime || '';
+      if (activity != clickedActivity && activityDate == clickedDate) {
+        activity.disabled = false;
+        activity.parentElement.classList.remove('disabled');
+      }
+    }
+  }
+};
 
 /**
  * setup payment info for credit card by default and add hide functions
@@ -254,20 +299,4 @@ form.addEventListener('submit', (e) => {
     validate('zip', zipcodeInput, e);
     validate('cvv', cvvInput, e);
   }
-});
-
-/**
- * Add event listeners to activity checkboxes
- * add clearer styling for focused states
- */
-const activitiesInput = document.querySelectorAll(
-  '#activities-box label input'
-);
-activitiesInput.forEach((item) => {
-  item.addEventListener('focus', () => {
-    item.parentElement.className = 'focus';
-  });
-  item.addEventListener('blur', () => {
-    item.parentElement.className = '';
-  });
 });
