@@ -162,11 +162,20 @@ const isValidName = (name) => {
  * format = word@word.com
  * @param {string} email
  */
+const emailHint = document.querySelector('#email-hint');
 const isValidEmail = (email) => {
-  const regex = /\w+@\w+.com/;
-  const isValid = regex.test(email);
-  if (!isValid) console.error('Email: format must be word@word.com');
-  return isValid;
+  const regexEmpty = /\S+/;
+  const regexFormat = /\w+@\w+.com/;
+  const isValidEmpty = regexEmpty.test(email);
+  const isValidFormat = regexFormat.test(email);
+  if (!isValidEmpty) {
+    emailHint.textContent = 'Email address cannot be blank';
+    console.error('Email: Cannot be blank');
+  } else if (!isValidFormat) {
+    emailHint.textContent = 'Email address must be formatted correctly';
+    console.error('Email: format must be word@word.com');
+  }
+  return isValidEmpty && isValidFormat;
 };
 
 /**
