@@ -283,6 +283,8 @@ const cvvInput = document.querySelector('#cvv');
 /**
  * Realtime validation methods
  */
+nameInput.addEventListener('keyup', () => validate('name', nameInput));
+emailInput.addEventListener('keyup', () => validate('email', emailInput));
 emailInput.addEventListener('keyup', () => validate('email', emailInput));
 activitiesInput.forEach((item) => {
   item.addEventListener('change', () => {
