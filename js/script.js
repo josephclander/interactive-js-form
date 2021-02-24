@@ -15,9 +15,6 @@ otherJobSelect.addEventListener('change', () => {
     otherJobInput.style = 'display: inline-block';
   } else {
     otherJobInput.style = 'display: none';
-    // need to remove the value or it will
-    // be submitted even when no longer selected
-    otherJobInput.value = '';
   }
 });
 
@@ -124,7 +121,7 @@ creditCardOption.selected = true;
 
 /**
  * @functions show or hide an element
- * @param {*} el - element you want to change
+ * @param {element} el - element you want to change
  */
 const hideElement = (el) => (el.style = 'display:none');
 const showElement = (el) => (el.style = 'display:block');
@@ -306,11 +303,24 @@ form.addEventListener('submit', (e) => {
 
   validate('name', nameInput, e);
   validate('email', emailInput, e);
+  if (otherJobSelect.value !== 'other') {
+    // remove job value as not selected
+    otherJobInput.value = '';
+  }
   validate('activities', activitiesBox, e);
   // checks for credit card options
   if (paymentSelector.value === 'credit-card') {
     validate('credit', creditCardInput, e);
     validate('zip', zipcodeInput, e);
     validate('cvv', cvvInput, e);
+  } else {
+    // remove credit card values as not selected
+    const expDate = document.querySelector('#exp-month');
+    const expYear = document.querySelector('#exp-year');
+    expDate.firstElementChild.selected = true;
+    expYear.firstElementChild.selected = true;
+    creditCardInput.value = '';
+    zipcodeInput.value = '';
+    cvvInput.value = '';
   }
 });
