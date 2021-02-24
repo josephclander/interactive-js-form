@@ -269,14 +269,12 @@ const validate = (type, input, e) => {
   if (isValid) {
     validHandler(input);
   } else {
-    e.preventDefault();
+    // only prevent default on form submit
+    e ? e.preventDefault() : null;
     invalidNotificationHandler(input);
   }
 };
 
-/**
- * form submit listener
- */
 const form = document.querySelector('form');
 // input fields to validate
 const emailInput = document.querySelector('#email');
@@ -284,6 +282,22 @@ const activitiesBox = document.querySelector('#activities-box');
 const creditCardInput = document.querySelector('#cc-num');
 const zipcodeInput = document.querySelector('#zip');
 const cvvInput = document.querySelector('#cvv');
+
+/**
+ * Realtime validation methods
+ */
+emailInput.addEventListener('keyup', () => validate('email', emailInput));
+if (paymentSelector.value === 'credit-card') {
+  creditCardInput.addEventListener('keyup', () =>
+    validate('credit', creditCardInput)
+  );
+  zipcodeInput.addEventListener('keyup', () => validate('zip', zipcodeInput));
+  cvvInput.addEventListener('keyup', () => validate('cvv', cvvInput));
+}
+
+/**
+ * form submit listener
+ */
 form.addEventListener('submit', (e) => {
   // I think clearing the console is not a good idea in production
   // however without it the console doesn't distinguish a new submit request
