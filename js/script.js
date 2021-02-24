@@ -15,12 +15,11 @@ otherJobSelect.addEventListener('change', () => {
     otherJobInput.style = 'display: inline-block';
   } else {
     otherJobInput.style = 'display: none';
+    // need to remove the value or it will
+    // be submitted even when no longer selected
+    otherJobInput.value = '';
   }
 });
-/**
- * CHECK - the other input element will still have
- *          a value if you type and then hide it
- */
 
 /**
  * setup option handling for t-shirt colors
