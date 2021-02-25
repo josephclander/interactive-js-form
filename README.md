@@ -15,7 +15,7 @@ Using the supplied HTML and CSS files, you'll add your own JavaScript to make th
 
 [Extra Credit](#extra-credit)
 
-[Testing](#testing)
+[Browser Testing](#browser-testing)
 
 [Added Features](#added-features)
 
@@ -139,9 +139,9 @@ Using the supplied HTML and CSS files, you'll add your own JavaScript to make th
     - For at least one required form section, provide one error message if the field fails on one of its requirements, and a separate message if it fails on one of its other requirements.
     - Detail this specific feature in your README.md file.
 
-## Testing
+## Browser Testing
 
-TBC
+This site was tested on Chrome 88 and Firefox 86 with no noticeable issues. Safari 14.03 has issues with the drop down selectors not hiding the first default option on click.
 
 ## Added Features
 
