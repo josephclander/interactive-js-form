@@ -1,10 +1,9 @@
-# Project 3: Interactive Form
+# 🪄 Interactive Form Using JS
 
-## Project Overview
+## Project Requirements
 
-In this project from Treehouse, you'll use JavaScript to enhance an interactive registration form for a fictional Full Stack conference.
-
-Using the supplied HTML and CSS files, you'll add your own JavaScript to make the form more user-friendly by:
+In this project from Treehouse, I use JavaScript to enhance an interactive registration form for a fictional Full Stack conference.
+I need to add JavaScript to make the form more user-friendly by:
 
 - Adding customized and conditional behavior and interactivity
 - Validating user input and providing helpful error messages when the user enters invalid information into the form fields.
