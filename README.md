@@ -8,6 +8,14 @@ I need to add JavaScript to make the form more user-friendly by:
 - Adding customized and conditional behavior and interactivity
 - Validating user input and providing helpful error messages when the user enters invalid information into the form fields.
 
+## Screenshots
+
+### User Input Feedback
+<img width="380" alt="screenshot_1" src="https://user-images.githubusercontent.com/19231569/213937259-f39def93-fac8-499e-9b2e-0c9c36d18979.png"> <img width="380" alt="screenshot_2" src="https://user-images.githubusercontent.com/19231569/213937263-95dca703-a6b0-411a-b9c1-ec211fb75368.png"> 
+
+### User Input Prevention
+<img width="380" alt="screenshot_3" src="https://user-images.githubusercontent.com/19231569/213937268-4ad75ee6-b38d-44b5-8034-cdb1adbdfcc8.png"> <img width="380" alt="screenshot_4" src="https://user-images.githubusercontent.com/19231569/213937272-5bf89690-1717-4e0e-a1d6-51c78590c37d.png">
+
 ## Table of Contents
 
 [Instructions](#project-instructions)
